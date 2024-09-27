@@ -117,7 +117,7 @@
                     android:paddingEnd="@dimen/_7sdp"
                     android:textSize="@dimen/_14sdp" />
             </com.google.android.material.textfield.TextInputLayout>
-0
+
             <Button
                 android:id="@+id/login_button_loginpage"
                 android:fontFamily="@font/poppins_bold"
