@@ -45,5 +45,6 @@ dependencies {
 
     implementation libs.sdp.android
     implementation libs.lottie
+    implementation libs.material.v161
 
 }

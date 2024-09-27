@@ -10,4 +10,19 @@
     <string name="index_heading1">HELLO,</string>
     <string name="index_heading2">WELCOME BACK TO</string>
     <string name="index_heading3">TRIP EASE</string>
+
+    <string name="signup_heading1">Hello,</string>
+    <string name="signup_heading2">Please Sign</string>
+    <string name="signup_heading3">Up</string>
+
+    <string name="login_heading1">Hello,</string>
+    <string name="login_heading2">Please Login</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="phone_number">Phone Number</string>
+
+    <string name="login_with_google">Login with Google</string>
+
 </resources>
