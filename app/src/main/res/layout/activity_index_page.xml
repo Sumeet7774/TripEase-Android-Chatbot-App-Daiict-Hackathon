@@ -1,0 +1,84 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:background="#EEEEEE"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SplashScreen">
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/splashScreenView_indexpage"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_300sdp"
+        android:layout_alignParentTop="true"
+        app:lottie_rawRes="@raw/manwalkinganimation"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true" />
+
+    <TextView
+        android:id="@+id/indexPage_heading1_textview"
+        android:text="@string/index_heading1"
+        android:fontFamily="@font/poppins_bold"
+        android:textSize="@dimen/_25sdp"
+        android:textColor="#222831"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/splashScreenView_indexpage"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_10sdp" />
+
+    <TextView
+        android:id="@+id/indexPage_heading2_textview"
+        android:text="@string/index_heading2"
+        android:fontFamily="@font/poppins_bold"
+        android:textColor="#393E46"
+        android:textSize="@dimen/_25sdp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/indexPage_heading1_textview"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_2sdp" />
+
+    <TextView
+        android:id="@+id/indexPage_heading3_textview"
+        android:text="@string/index_heading3"
+        android:fontFamily="@font/poppins_bold"
+        android:textColor="#393E46"
+        android:textSize="@dimen/_25sdp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/indexPage_heading2_textview"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_2sdp" />
+
+    <Button
+        android:id="@+id/signup_button"
+        android:fontFamily="@font/poppins_bold"
+        android:text="@string/signup"
+        android:background="@drawable/rounded_button"
+        android:textColor="#EEEEEE"
+        android:textSize="@dimen/_20sdp"
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/indexPage_heading3_textview"
+        android:layout_marginTop="@dimen/_30sdp"
+        android:layout_marginStart="@dimen/_20sdp" />
+
+    <Button
+        android:id="@+id/login_button"
+        android:fontFamily="@font/poppins_bold"
+        android:background="@drawable/rounded_button"
+        android:text="@string/login"
+        android:textColor="#EEEEEE"
+        android:textSize="@dimen/_20sdp"
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/signup_button"
+        android:layout_alignTop="@id/signup_button"
+        android:layout_marginStart="@dimen/_40sdp" />
+
+</RelativeLayout>

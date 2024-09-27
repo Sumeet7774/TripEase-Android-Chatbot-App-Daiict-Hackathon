@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Trip Ease</string>
+
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="signup">SIGN UP</string>
+    <string name="login">LOGIN</string>
+
+    <string name="index_heading1">HELLO,</string>
+    <string name="index_heading2">WELCOME BACK TO</string>
+    <string name="index_heading3">TRIP EASE</string>
 </resources>
