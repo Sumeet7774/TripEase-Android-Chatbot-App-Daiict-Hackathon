@@ -9,7 +9,7 @@
 
     <string name="index_heading1">HELLO,</string>
     <string name="index_heading2">WELCOME BACK TO</string>
-    <string name="index_heading3">TRIP EASE</string>
+    <string name="index_heading3">TRIP-EASE</string>
 
     <string name="signup_heading1">Hello,</string>
     <string name="signup_heading2">Please Sign</string>
@@ -24,8 +24,15 @@
     <string name="phone_number">Phone Number</string>
 
     <string name="login_with_google">Login with Google</string>
-    <!-- TODO: Remove or change this placeholder text -->
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="write_your_message">Write your message</string>
+
+    <string name="username_profilepage">Username</string>
+    <string name="update_profile_photo_text">Update Profile</string>
+    <string name="about_us">About Us</string>
+    <string name="contact_us">Contact Us</string>
+    <string name="delete_user">Delete User</string>
+    <string name="log_out">Log Out</string>
 
 </resources>

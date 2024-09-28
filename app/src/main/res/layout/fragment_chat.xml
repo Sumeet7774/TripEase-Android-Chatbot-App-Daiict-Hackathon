@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:fontFamily="@font/poppins_bold"
-            android:text="Chat"
+            android:text="Chat With Bot"
             android:layout_marginStart="@dimen/_20sdp"
             android:textColor="#EEEEEE"
             android:textSize="@dimen/_20sdp" />
