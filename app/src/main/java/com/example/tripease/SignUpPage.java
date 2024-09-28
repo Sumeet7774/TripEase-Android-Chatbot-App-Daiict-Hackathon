@@ -21,6 +21,8 @@ public class SignUpPage extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_sign_up_page);
 
+        sessionManagement = new SessionManagement(this);
+
         backsignuppage_btn = findViewById(R.id.back_button_signuppage);
 
         backsignuppage_btn.setOnClickListener(new View.OnClickListener() {
@@ -32,6 +34,5 @@ public class SignUpPage extends AppCompatActivity {
                 finish();
             }
         });
-
     }
 }

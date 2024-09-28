@@ -15,6 +15,9 @@
         android:theme="@style/Theme.TripEase"
         tools:targetApi="31">
         <activity
+            android:name=".HomeScreen"
+            android:exported="false" />
+        <activity
             android:name=".LoginPage"
             android:exported="false" />
         <activity

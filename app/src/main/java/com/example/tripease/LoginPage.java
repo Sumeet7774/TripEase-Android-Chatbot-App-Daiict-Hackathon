@@ -13,7 +13,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class LoginPage extends AppCompatActivity {
     SessionManagement sessionManagement;
-    Button backloginpage_btn;
+    Button backloginpage_btn, login_btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +22,7 @@ public class LoginPage extends AppCompatActivity {
         setContentView(R.layout.activity_login_page);
 
         backloginpage_btn = findViewById(R.id.back_button_loginpage);
+        login_btn = findViewById(R.id.login_button_loginpage);
 
         backloginpage_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -29,6 +30,16 @@ public class LoginPage extends AppCompatActivity {
                 Intent intent = new Intent(LoginPage.this, IndexPage.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+                finish();
+            }
+        });
+
+        login_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LoginPage.this, HomeScreen.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 finish();
             }
         });
