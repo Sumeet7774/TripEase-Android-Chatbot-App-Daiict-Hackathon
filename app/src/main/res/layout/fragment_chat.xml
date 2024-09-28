@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="0dp"
+    tools:context=".ChatFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#222831"
+        android:padding="10dp"
+        android:id="@+id/toolbar">
+
+        <TextView
+            android:id="@+id/toolbar_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:fontFamily="@font/poppins_bold"
+            android:text="Chat"
+            android:layout_marginStart="@dimen/_20sdp"
+            android:textColor="#EEEEEE"
+            android:textSize="@dimen/_20sdp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/bottomLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:padding="@dimen/_15sdp">
+
+        <EditText
+            android:id="@+id/chat_message_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:layout_marginBottom="@dimen/_40sdp"
+            android:layout_toStartOf="@id/message_send_btn"
+            android:background="@drawable/edit_text_rounded_corners"
+            android:elevation="@dimen/_4sdp"
+            android:hint="@string/write_your_message"
+            android:padding="@dimen/_10sdp"
+            android:textSize="@dimen/_16sdp" />
+
+        <ImageButton
+            android:id="@+id/message_send_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerInParent="true"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="@dimen/_10sdp"
+            android:src="@drawable/icon_send"
+            app:tint="#00ADB5" />
+
+    </RelativeLayout>
+</RelativeLayout>
