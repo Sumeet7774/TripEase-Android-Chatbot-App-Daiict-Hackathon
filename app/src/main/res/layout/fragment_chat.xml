@@ -1,11 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="0dp"
-    tools:context=".ChatFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -26,24 +22,32 @@
             android:textSize="@dimen/_20sdp" />
     </RelativeLayout>
 
-    <RelativeLayout
-        android:id="@+id/bottomLayout"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView_chat"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="8dp"
+        android:scrollbars="vertical"
+        android:layout_below="@id/toolbar"
+        android:layout_above="@id/inputLayout"/>
+
+    <LinearLayout
+        android:id="@+id/inputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
         android:layout_alignParentBottom="true"
-        android:padding="@dimen/_15sdp">
+        android:padding="8dp">
 
         <EditText
             android:id="@+id/chat_message_input"
             android:fontFamily="@font/poppins_medium"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_marginStart="@dimen/_5sdp"
-            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_weight="1"
             android:layout_marginEnd="@dimen/_5sdp"
-            android:layout_marginBottom="@dimen/_40sdp"
-            android:layout_toStartOf="@id/message_send_btn"
+            android:layout_marginBottom="@dimen/_10sdp"
             android:background="@drawable/edit_text_rounded_corners"
             android:elevation="@dimen/_4sdp"
             android:hint="@string/write_your_message"
@@ -54,13 +58,14 @@
             android:id="@+id/message_send_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerInParent="true"
-            android:layout_marginStart="@dimen/_5sdp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:padding="@dimen/_10sdp"
             android:src="@drawable/icon_send"
-            app:tint="#00ADB5" />
+            app:tint="#00ADB5"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginBottom="@dimen/_10sdp" />
 
-    </RelativeLayout>
+    </LinearLayout>
+
 </RelativeLayout>

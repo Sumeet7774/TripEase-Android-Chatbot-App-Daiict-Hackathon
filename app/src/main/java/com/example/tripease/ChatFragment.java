@@ -1,109 +1,130 @@
 package com.example.tripease;
 
 import android.os.Bundle;
-import androidx.fragment.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import org.json.JSONArray;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.example.tripease.ApiEndpoints;
+import com.example.tripease.ChatMessageAdaptor;
+import com.example.tripease.ChatMessageModel;
+import com.example.tripease.R;
+import com.example.tripease.VolleySingleton;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ChatFragment extends Fragment {
-    private EditText chatmessageInput;
-    private ImageButton sendBtn;
-    private int currentUserId = 1;  // Assuming this is an integer for sending messages
+    SessionManagement sessionManagement;
+    private RecyclerView recyclerView;
+    private ChatMessageAdaptor chatAdapter;
+    private List<ChatMessageModel> chatMessages = new ArrayList<>();
+    private EditText inputMessage;
+    private ImageButton sendButton;
+    private String currentUserId;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_chat, container, false);
 
-        chatmessageInput = view.findViewById(R.id.chat_message_input);
-        sendBtn = view.findViewById(R.id.message_send_btn);
+        sessionManagement = new SessionManagement(getContext());
 
-        sendBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String userMessage = chatmessageInput.getText().toString();
+        currentUserId = sessionManagement.getUserId();
 
-                if (!userMessage.isEmpty()) {
-                    sendMessageToBot(userMessage, currentUserId);
-                } else {
-                    Toast.makeText(getContext(), "Message cannot be empty", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+        recyclerView = view.findViewById(R.id.recyclerView_chat);
+        inputMessage = view.findViewById(R.id.chat_message_input);
+        sendButton = view.findViewById(R.id.message_send_btn);
+
+        chatAdapter = new ChatMessageAdaptor(chatMessages);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setAdapter(chatAdapter);
+
+        sendButton.setOnClickListener(v -> onSendClick());
+
         return view;
     }
 
-    public void sendMessageToBot(final String userMessage, final int userId) {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, ApiEndpoints.chatbot_url,
+    private void onSendClick() {
+        String message = inputMessage.getText().toString().trim();
+        if (!message.isEmpty()) {
+            sendMessageToBot(message, currentUserId);
+            inputMessage.setText("");  // Clear the input field
+        } else {
+            Toast.makeText(getContext(), "Please enter a message", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void sendMessageToBot(final String userMessage, final String userId) {
+        // Show the user's message in the chat
+        chatAdapter.addMessage(new ChatMessageModel("user", userMessage));
+        Log.d("User Message", userMessage);
+
+        // Create a JSON object with user data
+        JSONObject params = new JSONObject();
+        try {
+            params.put("user_id", userId);
+            params.put("message", userMessage);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        // Make network request to bot using JsonObjectRequest
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, ApiEndpoints.chatbot_url, params,
                 response -> {
-                    Log.d("REQUEST", "User Message: " + userMessage);
-                    Log.d("REQUEST", "User ID: " + userId);
-                    Log.d("RESPONSE", "Raw response: " + response);
+                    // Log the raw response from the Groq API
+                    Log.d("ChatFragment", "Raw response from Groq API: " + response.toString());
 
                     // Parse the JSON response
                     try {
-                        JSONObject jsonResponse = new JSONObject(response);
+                        String status = response.getString("status");
 
-                        // Check the status
-                        String status = jsonResponse.getString("status");
                         if ("success".equals(status)) {
-                            String responseUserId = jsonResponse.getString("user_id"); // User ID as String
-                            String responseMessage = jsonResponse.getString("user_message");
-                            String botResponse = jsonResponse.getString("bot_response");
+                            String botResponse = response.getString("bot_response");
+                            Log.d("Bot Response", botResponse);
 
-                            Log.d("BOTRESPONSE", "Bot Response: " + botResponse);
-                            displayMessageInChat(responseMessage, botResponse); // Display user and bot message
+                            // Show bot's response in the chat
+                            chatAdapter.addMessage(new ChatMessageModel("bot", botResponse));
+
+                            // Scroll to the bottom
+                            recyclerView.smoothScrollToPosition(chatMessages.size() - 1);
                         } else {
-                            Toast.makeText(getContext(), "Error: " + jsonResponse.getString("message"), Toast.LENGTH_SHORT).show();
+                            // Handle case when status is not success
+                            Toast.makeText(getContext(), "Error: " + response.getString("message"), Toast.LENGTH_SHORT).show();
                         }
 
                     } catch (JSONException e) {
                         e.printStackTrace();
-                        Toast.makeText(getContext(), "Failed to get a valid response from the bot.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Error parsing response", Toast.LENGTH_SHORT).show();
                     }
                 },
-                volleyError -> {
-                    String errorMessage = volleyError.getMessage();
-                    if (errorMessage == null) {
-                        errorMessage = "Unknown error occurred";
-                    }
-                    Toast.makeText(getContext(), "Please check your internet connection: " + errorMessage, Toast.LENGTH_SHORT).show();
-                    Log.d("VOLLEY", errorMessage);
+                error -> {
+                    // Handle error
+                    Toast.makeText(getContext(), "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
                 }) {
             @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<>();
-                params.put("user_id", String.valueOf(userId));  // user ID as integer sent in request
-                params.put("message", userMessage);  // user input message
-                return params;
+            public Map<String, String> getHeaders() {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Content-Type", "application/json");
+                return headers;
             }
         };
 
-        // Ensure VolleySingleton is properly initialized and added to the request queue
-        VolleySingleton.getInstance(getContext()).addToRequestQueue(stringRequest);
-    }
-
-    // Method to display message in the chat (update the UI)
-    private void displayMessageInChat(String userMessage, String botMessage) {
-        // Implement your logic to display the message in the chat
-        // For example, update a RecyclerView or TextView
-        // Example implementation with Toasts for simplicity:
-        Toast.makeText(getContext(), "You: " + userMessage, Toast.LENGTH_SHORT).show();
-        Toast.makeText(getContext(), "Bot: " + botMessage, Toast.LENGTH_SHORT).show();
-
-        // Replace the above Toasts with your RecyclerView logic to append messages.
-        // E.g., if you're using a RecyclerView, add the messages to a list and notify the adapter.
+        VolleySingleton.getInstance(getContext()).addToRequestQueue(jsonObjectRequest);
     }
 }
