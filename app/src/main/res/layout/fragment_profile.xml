@@ -8,7 +8,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#222831"
+        android:background="#00ADB5"
         android:padding="10dp"
         android:id="@+id/toolbar">
 
@@ -20,7 +20,7 @@
             android:fontFamily="@font/poppins_bold"
             android:text="Profile"
             android:layout_marginStart="@dimen/_20sdp"
-            android:textColor="#EEEEEE"
+            android:textColor="#222831"
             android:textSize="@dimen/_20sdp" />
 
     </RelativeLayout>
@@ -45,8 +45,8 @@
                 android:scaleType="centerCrop" />
 
             <TextView
-                android:id="@+id/username_textview_profile"
-                android:text="@string/username_profilepage"
+                android:id="@+id/firstname_textview_profile"
+                android:text="@string/firstname_profilepage"
                 android:textSize="@dimen/_20sdp"
                 android:fontFamily="@font/montserrat_semibold"
                 android:layout_centerHorizontal="true"
@@ -59,7 +59,7 @@
                 android:id="@+id/cardUpdateProfile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/username_textview_profile"
+                android:layout_below="@id/firstname_textview_profile"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="@dimen/_30sdp"
                 android:clickable="false"

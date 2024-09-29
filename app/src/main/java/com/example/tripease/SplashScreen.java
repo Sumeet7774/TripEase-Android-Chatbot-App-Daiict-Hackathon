@@ -6,9 +6,6 @@ import android.os.Handler;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 public class SplashScreen extends AppCompatActivity {
     SessionManagement sessionManagement;
@@ -23,8 +20,17 @@ public class SplashScreen extends AppCompatActivity {
         sessionManagement = new SessionManagement(this);
 
         new Handler().postDelayed(() -> {
-            Intent intent = new Intent(SplashScreen.this, IndexPage.class);
-            startActivity(intent);
+            // Check if user_id is present in the session
+            if (sessionManagement.getUserId().isEmpty()) {
+                // If no session, navigate to IndexPage (login/signup)
+                Intent intent = new Intent(SplashScreen.this, IndexPage.class);
+                startActivity(intent);
+            } else {
+                // If session exists, navigate to HomeScreen
+                Intent intent = new Intent(SplashScreen.this, HomeScreen.class);
+                startActivity(intent);
+            }
+
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             finish();
         }, SPLASH_SCREEN_TIMEOUT);

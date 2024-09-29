@@ -10,7 +10,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#222831"
+        android:background="#00ADB5"
         android:padding="10dp"
         android:id="@+id/toolbar">
 
@@ -22,7 +22,7 @@
             android:fontFamily="@font/poppins_bold"
             android:text="Chat History"
             android:layout_marginStart="@dimen/_20sdp"
-            android:textColor="#EEEEEE"
+            android:textColor="#222831"
             android:textSize="@dimen/_20sdp" />
     </RelativeLayout>
 
